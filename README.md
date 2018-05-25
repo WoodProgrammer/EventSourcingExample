@@ -1,1 +1,1 @@
-# PostgreSqlEventSourcing 
+# EventSourcing example in Flask 
