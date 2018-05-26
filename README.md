@@ -1,1 +1,0 @@
-# EventSourcing example in Flask 
