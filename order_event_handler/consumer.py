@@ -7,6 +7,7 @@ publisher = EventPublisher()
 
 for msg in consumer:
     tmp_json = json.loads(msg.value)
-    if tmp_json['STATE'] == 'SHIPPED':
+    if tmp_json['state'] == 'SHIPPED':
         stock_count = tmp_json['count']
-        publisher.publish(topic_name='stock', count=stock_count)
+
+        publisher.publish(data={'stock_id':tmp_json['stock_id'], 'change_count':stock_count},topic_name='stock', count=stock_count)

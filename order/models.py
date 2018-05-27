@@ -52,7 +52,7 @@ class Orders(dict):
             return 0
 
     def set_order(self, order_payload):
-        order_payload['state'] = "CREATED"
+        order_payload['state'] = "SHIPPED"
         print(order_payload)
         event_handler.publish(data=order_payload)
         self.collection.insert(order_payload)

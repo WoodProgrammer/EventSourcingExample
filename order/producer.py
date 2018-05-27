@@ -10,5 +10,5 @@ class EventPublisher:
         self.producer = KafkaProducer(bootstrap_servers='192.168.99.100:9092')
 
     def publish(self, data, topic_name='order'):
-
+        
         self.producer.send(topic_name, json.dumps(data, indent=4, default=json_util.default).encode('utf-8'))
