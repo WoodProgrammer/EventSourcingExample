@@ -26,8 +26,10 @@ class Orders(dict):
     def all_orders(self):
         order_arr = []
         for order in self.collection.find():
-            order_arr.append({'order_id' : order['order_id'], 'stock_id' : order['stock_id'], 'count':order['count'], 'price': order['price']})
-
+            try:
+                order_arr.append({'order_id' : order['order_id'], 'stock_id' : order['stock_id'], 'count':order['count'], 'price': order['price'],'state': order['state']})
+            except:##key errr
+                order_arr.append({'order_id' : order['order_id'], 'stock_id' : order['stock_id'], 'count':order['count'], 'price': order['price']})
 
         return order_arr
 
