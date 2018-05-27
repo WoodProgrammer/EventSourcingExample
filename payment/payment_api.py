@@ -16,7 +16,7 @@ def create_payment():
     payment_payload =  request.json
     payment_obj.set_payment(payment_payload= payment_payload)
 
-    return jsonify({"payment_id":payment_payload["payment_id"],"stock_id":payment_payload["stock_id"],"count":payment_payload["count"],"price":payment_payload["price"]})
+    return jsonify({"order_id":payment_payload["order_id"], "payment_id":payment_payload["payment_id"],"stock_id":payment_payload["stock_id"],"count":payment_payload["count"],"price":payment_payload["price"]})
 
 
 @app.route("/delete_payment", methods=["DELETE"])

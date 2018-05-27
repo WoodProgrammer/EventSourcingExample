@@ -1,8 +1,10 @@
 
 from pymongo import MongoClient
 from bson import ObjectId
-
+from publisher import EventPublisher
 import json
+
+event_handler = EventPublisher()
 
 class Payment(dict):
 
@@ -23,7 +25,10 @@ class Payment(dict):
     def all_payments(self):
         payment_arr = []
         for payment in self.collection.find():
-            payment_arr.append({'payment_id' : payment['payment_id'], 'stock_id' : payment['stock_id'], 'count':payment['count'], 'price': payment['price']})
+            try:
+                payment_arr.append({'order_id':payment['order_id'], 'payment_id' : payment['payment_id'], 'stock_id' : payment['stock_id'], 'count':payment['count'], 'price': payment['price'], 'state':payment['state']})
+            except:
+                payment_arr.append({'order_id':payment['order_id'], 'payment_id' : payment['payment_id'], 'stock_id' : payment['stock_id'], 'count':payment['count'], 'price': payment['price']})
 
 
         return payment_arr
@@ -46,5 +51,9 @@ class Payment(dict):
             self.log_collection.insert({"log_message":str(exp)})
             return 0
 
-    def set_payment(self, payment_payload):
+    def set_payment(self, payment_payload):## if payment_is okey validate
+    ###validate fujnction ()
+
+        payment_payload['payment_state'] = 'VALIDATED'
+        event_handler.publish(data=payment_payload)
         self.collection.insert(payment_payload)
